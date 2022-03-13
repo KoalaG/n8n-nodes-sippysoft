@@ -1,12 +1,12 @@
 {
-    "name": "n8n-nodes-starter",
-    "version": "0.1.0",
-    "description": "Example starter module for custom n8n nodes.",
+    "name": "n8n-nodes-sippysoft",
+    "version": "0.0.1",
+    "description": "Node for connecting to SippySoft Switch.",
     "license": "SEE LICENSE IN LICENSE.md",
     "homepage": "https://n8n.io",
     "author": {
-        "name": "Jan Oberhauser",
-        "email": "jan@n8n.io"
+        "name": "Gavin James",
+        "email": "gavin@lightningip.com.au"
     },
     "repository": {
         "type": "git",
@@ -26,11 +26,8 @@
         "dist"
     ],
     "n8n": {
-        "credentials": [
-            "dist/credentials/ExampleCredentials.credentials.js"
-        ],
         "nodes": [
-            "dist/nodes/ExampleNode/ExampleNode.node.js"
+            "dist/SippySoft.node.js"
         ]
     },
     "devDependencies": {
@@ -47,6 +44,8 @@
         "typescript": "~4.3.5"
     },
     "dependencies": {
+        "@foxglove/xmlrpc": "^1.1.6",
+        "@koush/axios-digest-auth": "^0.8.5",
         "n8n-core": "~0.101.0"
     },
     "jest": {

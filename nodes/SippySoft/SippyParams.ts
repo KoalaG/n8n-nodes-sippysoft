@@ -29,6 +29,17 @@ export const i_account: INodeProperties = {
     ] } }
 }
 
+export const i_call: INodeProperties = {
+    displayName: 'Call',
+    name: 'i_call',
+    type: 'number',
+    required: false,
+    default: '',
+    displayOptions: { show: { '/methodCall': [
+        'getCDRSDP'
+    ] } }
+}
+
 export const i_cdr: INodeProperties = {
     displayName: 'CDR ID',
     name: 'i_cdr',

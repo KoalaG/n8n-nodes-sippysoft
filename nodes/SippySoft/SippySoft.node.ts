@@ -104,11 +104,12 @@ export class SippySoft implements INodeType {
 				placeholder: 'Add Resource Parameter',
 				default: {},
 				displayOptions: { show: { '/methodCall': [
-					'getAccountCDRs', 'getAccountInfo', 'blockAccount', 'unblockAccount',
+					'getAccountCDRs', 'getAccountInfo', 'blockAccount', 'unblockAccount', 'getCDRSDP',
 				] } },
 				options: [
 					SippyParams.i_account,
 					SippyParams.i_cdr,
+					SippyParams.i_call,
 				]
 			},
 
@@ -159,6 +160,7 @@ export class SippySoft implements INodeType {
 					{ name: 'Block Account',		value: 'blockAccount',		f: [ 		'account',						] },
 					{ name: 'Unblock Account',		value: 'unblockAccount',	f: [ 		'account',						] },
 					{ name: 'Get Dictionary',		value: 'getDictionary',		f: [								'misc',	] },
+					{ name: 'Get CDR SDP',			value: 'getCDRSDP',			f: [ 'cdr',									] },
 				];
 				
 				return methods

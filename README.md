@@ -225,7 +225,7 @@ An N8N Node for SippySoft API. This Node was made using the n8n-nodes-modules wo
  - [ ] [exportVendorsCDRs_Mera](https://support.sippysoft.com/support/solutions/articles/107436-xml-rpc-api-exporting-vendors-cdr-to-mera-format)
  - [ ] [getCustomerCDRs](https://support.sippysoft.com/support/solutions/articles/107429-xml-rpc-api-get-cdrs-of-a-customer)
  - [x] [getAccountCDRs](https://support.sippysoft.com/support/solutions/articles/107367-xml-rpc-api-get-cdrs-of-an-account)
- - [ ] [getCDRSDP](https://support.sippysoft.com/support/solutions/articles/3000039695-xml-rpc-api-retrieve-sdp-data-of-a-call)
+ - [x] [getCDRSDP](https://support.sippysoft.com/support/solutions/articles/3000039695-xml-rpc-api-retrieve-sdp-data-of-a-call)
 
 ## License
 

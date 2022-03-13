@@ -1,6 +1,10 @@
 # n8n-nodes-sippysoft
 
-An N8N Node for SippySoft API. This Node was made using the n8n-nodes-modules workflow as it requires additional external libraries.
+An N8N Node for SippySoft API.
+
+This Node was made using the n8n-nodes-modules workflow as it requires additional external libraries.
+Specifically, the HTTPRequest helper built into n8n does not support SippySofts implementation of DigestAuth so an external library has been used.
+Additionally, an XMLRPC serialiser/deserialiser module has been included.
 
 ## API Progress
 

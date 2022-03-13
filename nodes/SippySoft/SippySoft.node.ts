@@ -3,9 +3,13 @@ import {
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
+	ILoadOptionsFunctions,
+	INodePropertyOptions
 } from 'n8n-workflow';
 import { serializeMethodCall, Deserializer } from '@foxglove/xmlrpc';
 import AxiosDigestAuth from '@koush/axios-digest-auth';
+import { PaginatedMethods } from './displayrules';
+import * as SippyParams from './SippyParams';
 
 function formatDate(date: string) : string {
 	const d = new Date(date);
@@ -39,9 +43,9 @@ export class SippySoft implements INodeType {
 				required: true,
 			},
 		],
+
 		properties: [
-			// Node properties which the user gets displayed and
-			// can change on the node.
+			
 			{
 				displayName: 'SippySoft Server',
 				name: 'sippyDomain',
@@ -51,112 +55,124 @@ export class SippySoft implements INodeType {
 				placeholder: 'my.sippy.server',
 				description: 'The domain name of your sippy server.',
 			},
+
+			{
+				displayName: 'Resource',
+				name: 'callResource',
+				type: 'options',
+				required: true,
+				default: '',
+				options: [
+					{ name: 'CDR',		value: 'cdr'		},
+					{ name: 'Account',	value: 'account'	},
+					{ name: 'Customer',	value: 'customer'	},
+					{ name: 'Misc',		value: 'misc'	},
+				]
+			},
+
 			{
 				displayName: 'Method Call',
 				name: 'methodCall',
 				type: 'options',
 				required: true,
 				default: '',
-				options: [
-					{ name: 'GET - Account CDRs', value: 'getAccountCDRs' }
-				],
+				typeOptions: {
+					loadOptionsDependsOn: [ 'callAction', 'callResource' ],
+					loadOptionsMethod: 'loadMethods',
+				},
 				placeholder: 'Select Method Call',
 				description: 'The method to call on the Sippy API',
 			},
 
 			{
-				displayName: 'Call Parameters',
-				name: 'callParameters',
+				displayName: 'Pagination',
+				name: 'parsPaginations',
 				type: 'collection',
-				placeholder: 'Add Parameter',
+				placeholder: 'Add Pagination Parameter',
 				default: {},
+				displayOptions: { show: { '/methodCall': PaginatedMethods } },
 				options: [
+					SippyParams.offset,
+					SippyParams.limit,
+				]
+			},	
 
-					{
-						displayName: 'Account',
-						name: 'i_account',
-						type: 'number',
-						required: false,
-						default: '',
-						displayOptions: {
-							show: {
-								'/methodCall': [
-									'getAccountCDRs',
-								]
-							}
-						}
-					},
+			{
+				displayName: 'Resource Parameter',
+				name: 'parsResource',
+				type: 'collection',
+				placeholder: 'Add Resource Parameter',
+				default: {},
+				displayOptions: { show: { '/methodCall': [
+					'getAccountCDRs', 'getAccountInfo', 'blockAccount', 'unblockAccount',
+				] } },
+				options: [
+					SippyParams.i_account,
+					SippyParams.i_cdr,
+				]
+			},
 
+			{
+				displayName: 'CDR Parameters',
+				name: 'parsCDR',
+				type: 'collection',
+				placeholder: 'Add CDR Parameter',
+				default: {},
+				displayOptions: { show: { '/methodCall': [ 'getAccountCDRs', ] } },
+				options: [
+					SippyParams.start_date,
+					SippyParams.end_date,
+					SippyParams.cli,
+					SippyParams.cld,
+					SippyParams.type.cdr,
+				]
+			},
 
-					{
-						displayName: 'Start Date',
-						name: 'start_date',
-						type: 'dateTime',
-						required: false,
-						default: '',
-						displayOptions: {
-							show: {
-								'/methodCall': [
-									'getAccountCDRs',
-								]
-							}
-						}
-					},
-
-
-					{
-						displayName: 'End Date',
-						name: 'end_date',
-						type: 'dateTime',
-						required: false,
-						default: '',
-						displayOptions: {
-							show: {
-								'/methodCall': [
-									'getAccountCDRs',
-								]
-							}
-						}
-					},
-
-
-
-
-					{
-						displayName: 'Type',
-						name: 'type',
-						type: 'options',
-						required: true,
-						default: '',
-						displayOptions: {
-							show: {
-								'/methodCall': [
-									'getAccountCDRs',
-								]
-							}
-						},
-						options: [
-							{ name: 'Non-Zero & Errors', value: 'non_zero_and_errors' },
-							{ name: 'Non-Zero', value: 'non_zero' },
-							{ name: 'All', value: 'all' },
-							{ name: 'Complete', value: 'complete' },
-							{ name: 'Incomplete', value: 'incomplete' },
-							{ name: 'Errors', value: 'errors' },
-						]
-					},
-
+			{
+				displayName: 'Other Parameters',
+				name: 'parsMisc',
+				type: 'collection',
+				placeholder: 'Add Other Parameter',
+				default: {},
+				displayOptions: { show: { '/methodCall': [
+					'getDictionary',
+				]}},
+				options: [
+					SippyParams.name.dictionary,
+					SippyParams.type.dictionary,
 				]
 			}
 
-			/*
-				offset - skip fist offset CDRs. Integer. Optional.
-				limit - return only limit CDRs. Integer. Optional.
-				cli - fetch CDRs with CLI (after translation rules applied) like cli. String. Optional.
-				cld - fetch CDRs with CLD (after translation rules applied) like cld. String. Optional.
-				i_cdr - return only specified CDR. String. Optional. (new since 4.4)
-			*/
 		],
 	};
+
+	methods = {
+		loadOptions: {
+			async loadMethods(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+				const callResource = this.getCurrentNodeParameter('callResource') as string;
+				
+				const methods = [
+					{ name: 'Get Account CDRs',		value: 'getAccountCDRs',	f: [ 'cdr', 'account',						] },
+					{ name: 'Get Customer CDRs',	value: 'getCustomerCDRs',	f: [ 'cdr', 			'customer',			] },
+					{ name: 'List Accounts',		value: 'listAccounts',		f: [ 		'account',						] },
+					{ name: 'Get Account Info',		value: 'getAccountInfo',	f: [ 		'account',						] },
+					{ name: 'Block Account',		value: 'blockAccount',		f: [ 		'account',						] },
+					{ name: 'Unblock Account',		value: 'unblockAccount',	f: [ 		'account',						] },
+					{ name: 'Get Dictionary',		value: 'getDictionary',		f: [								'misc',	] },
+				];
+				
+				return methods
+					.filter(({f}) => f.includes(callResource))
+					.sort(function(a, b) {
+						var textA = a.name.toUpperCase();
+						var textB = b.name.toUpperCase();
+						return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+					})
+					.map(({ name, value }) => ({ name, value }));
+
+			},
+		}
+	}
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 
@@ -170,22 +186,39 @@ export class SippySoft implements INodeType {
 			const sippyDomain = this.getNodeParameter('sippyDomain', itemIndex) as string;
 			const httpDigestAuth = await this.getCredentials('httpDigestAuth') as { user: string, password: string };
 			const methodCall = this.getNodeParameter('methodCall', itemIndex, '') as string;
-			const paramaters = this.getNodeParameter('callParameters', itemIndex) as {
-				start_date: any,
-				end_date: any,
+			
+			const parsPaginations = this.getNodeParameter('parsPaginations', itemIndex, {}) as {
+				offset?: number,
+				limit?: number,
 			};
 
+			const parsResource = this.getNodeParameter('parsResource', itemIndex, {}) as {
+				i_account?: number,
+				i_customer?: number,
+				i_cdr?: string,
+			};
+
+			const parsCDR = this.getNodeParameter('parsCDR', itemIndex, {}) as {
+				start_date?: any,
+				end_date?: any,
+			};
+			
+			const parsGeneral = this.getNodeParameter('parsGeneral', itemIndex, {}) as {};
+
 			// Format specific parameter values
-			if (paramaters.start_date) {
-				paramaters.start_date = formatDate(paramaters.start_date);
+			if (parsCDR.start_date) {
+				parsCDR.start_date = formatDate(parsCDR.start_date);
 			}
-			if (paramaters.end_date) {
-				paramaters.end_date = formatDate(paramaters.end_date);
+			if (parsCDR.end_date) {
+				parsCDR.end_date = formatDate(parsCDR.end_date);
 			}
 
 			// Generate XML String
 			const xmlString = serializeMethodCall(methodCall, [ {
-				...paramaters
+				...parsPaginations,
+				...parsResource,
+				...parsCDR,
+				...parsGeneral,
 			} ]);
 
 			// Setup Authentication

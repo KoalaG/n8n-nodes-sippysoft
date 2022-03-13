@@ -1,8 +1,6 @@
 # n8n-nodes-sippysoft
 
-![n8n.io - Workflow Automation](https://raw.githubusercontent.com/n8n-io/n8n/master/docs/images/n8n-logo.png)
-
-An N8N Node for SippySoft API.
+An N8N Node for SippySoft API. This Node was made using the n8n-nodes-modules workflow as it requires additional external libraries.
 
 ## API Progress
 
@@ -21,9 +19,9 @@ An N8N Node for SippySoft API.
  - [ ] [createAccount](https://support.sippysoft.com/support/solutions/articles/107312-xml-rpc-api-account-creation-and-parameters)
  - [ ] [updateAccount](https://support.sippysoft.com/support/solutions/articles/107320-xml-rpc-api-updating-accounts)
  - [ ] [deleteAccount](https://support.sippysoft.com/support/solutions/articles/107321-xml-rpc-api-account-deletion)
- - [ ] [listAccounts](https://support.sippysoft.com/support/solutions/articles/107322-xml-rpc-api-listing-accounts)
+ - [x] [listAccounts](https://support.sippysoft.com/support/solutions/articles/107322-xml-rpc-api-listing-accounts)
  - [ ] [authAccount](https://support.sippysoft.com/support/solutions/articles/107325-xml-rpc-api-authenticating-accounts-using-web-credentials)
- - [ ] [getAccountInfo](https://support.sippysoft.com/support/solutions/articles/107327-xml-rpc-api-retrieving-account-information)
+ - [x] [getAccountInfo](https://support.sippysoft.com/support/solutions/articles/107327-xml-rpc-api-retrieving-account-information)
  - [ ] [addCLIMapping](https://support.sippysoft.com/support/solutions/articles/107328-xml-rpc-api-trusted-numbers-manipulation-and-cli-mapping)
  - [ ] [updateCLIMapping](https://support.sippysoft.com/support/solutions/articles/107328-xml-rpc-api-trusted-numbers-manipulation-and-cli-mapping)
  - [ ] [delCLIMapping](https://support.sippysoft.com/support/solutions/articles/107328-xml-rpc-api-trusted-numbers-manipulation-and-cli-mapping)
@@ -42,8 +40,8 @@ An N8N Node for SippySoft API.
  - [ ] [delAuthRule](https://support.sippysoft.com/support/solutions/articles/107336-xml-rpc-api-authentication-rules-management)
  - [ ] [getAuthRuleInfo](https://support.sippysoft.com/support/solutions/articles/107336-xml-rpc-api-authentication-rules-management)
  - [ ] [listAuthRules](https://support.sippysoft.com/support/solutions/articles/107336-xml-rpc-api-authentication-rules-management)
- - [ ] [blockAccount](https://support.sippysoft.com/support/solutions/articles/107340-xml-rpc-api-blocking-and-unblocking-accounts)
- - [ ] [unblockAccount](https://support.sippysoft.com/support/solutions/articles/107340-xml-rpc-api-blocking-and-unblocking-accounts)
+ - [x] [blockAccount](https://support.sippysoft.com/support/solutions/articles/107340-xml-rpc-api-blocking-and-unblocking-accounts)
+ - [x] [unblockAccount](https://support.sippysoft.com/support/solutions/articles/107340-xml-rpc-api-blocking-and-unblocking-accounts)
  - [ ] [updateIncomingRoute](https://support.sippysoft.com/support/solutions/articles/3000032223-xml-rpc-api-account-incoming-routing-management)
  - [ ] [getIncomingRoutesList](https://support.sippysoft.com/support/solutions/articles/3000032223-xml-rpc-api-account-incoming-routing-management)
  - [ ] [getRegistrationStatus](https://support.sippysoft.com/support/solutions/articles/107366-xml-rpc-api-get-sip-registration-status-of-an-account)
@@ -114,7 +112,7 @@ An N8N Node for SippySoft API.
  - [ ] [set_credit_limit]()
 
 ### System Dictionaries
- - [ ] [getDictionary](https://support.sippysoft.com/support/solutions/articles/3000055804-xml-rpc-api-get-system-dictionaries)
+ - [x] [getDictionary](https://support.sippysoft.com/support/solutions/articles/3000055804-xml-rpc-api-get-system-dictionaries)
 
 ### Miscellaneous
  - [ ] [sendEMail](https://support.sippysoft.com/support/solutions/articles/107472-xml-rpc-api-send-an-email)
@@ -226,7 +224,7 @@ An N8N Node for SippySoft API.
 ### CDRs data retrieving
  - [ ] [exportVendorsCDRs_Mera](https://support.sippysoft.com/support/solutions/articles/107436-xml-rpc-api-exporting-vendors-cdr-to-mera-format)
  - [ ] [getCustomerCDRs](https://support.sippysoft.com/support/solutions/articles/107429-xml-rpc-api-get-cdrs-of-a-customer)
- - [ ] [getAccountCDRs](https://support.sippysoft.com/support/solutions/articles/107367-xml-rpc-api-get-cdrs-of-an-account)
+ - [x] [getAccountCDRs](https://support.sippysoft.com/support/solutions/articles/107367-xml-rpc-api-get-cdrs-of-an-account)
  - [ ] [getCDRSDP](https://support.sippysoft.com/support/solutions/articles/3000039695-xml-rpc-api-retrieve-sdp-data-of-a-call)
 
 ## License

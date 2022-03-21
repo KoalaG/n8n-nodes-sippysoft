@@ -66,7 +66,8 @@ export class SippySoft implements INodeType {
 					{ name: 'CDR',		value: 'cdr'		},
 					{ name: 'Account',	value: 'account'	},
 					{ name: 'Customer',	value: 'customer'	},
-					{ name: 'Misc',		value: 'misc'	},
+					{ name: 'Tariff',   value: 'tariff'		},
+					{ name: 'Misc',		value: 'misc'		},
 				]
 			},
 
@@ -77,7 +78,7 @@ export class SippySoft implements INodeType {
 				required: true,
 				default: '',
 				typeOptions: {
-					loadOptionsDependsOn: [ 'callAction', 'callResource' ],
+					loadOptionsDependsOn: [ 'callResource' ],
 					loadOptionsMethod: 'loadMethods',
 				},
 				placeholder: 'Select Method Call',
@@ -136,11 +137,12 @@ export class SippySoft implements INodeType {
 				placeholder: 'Add Other Parameter',
 				default: {},
 				displayOptions: { show: { '/methodCall': [
-					'getDictionary',
+					'getDictionary', 'getTariffsList',
 				]}},
 				options: [
 					SippyParams.name.dictionary,
 					SippyParams.type.dictionary,
+					SippyParams.name_pattern,
 				]
 			}
 
@@ -153,14 +155,15 @@ export class SippySoft implements INodeType {
 				const callResource = this.getCurrentNodeParameter('callResource') as string;
 				
 				const methods = [
-					{ name: 'Get Account CDRs',		value: 'getAccountCDRs',	f: [ 'cdr', 'account',						] },
-					{ name: 'Get Customer CDRs',	value: 'getCustomerCDRs',	f: [ 'cdr', 			'customer',			] },
-					{ name: 'List Accounts',		value: 'listAccounts',		f: [ 		'account',						] },
-					{ name: 'Get Account Info',		value: 'getAccountInfo',	f: [ 		'account',						] },
-					{ name: 'Block Account',		value: 'blockAccount',		f: [ 		'account',						] },
-					{ name: 'Unblock Account',		value: 'unblockAccount',	f: [ 		'account',						] },
-					{ name: 'Get Dictionary',		value: 'getDictionary',		f: [								'misc',	] },
-					{ name: 'Get CDR SDP',			value: 'getCDRSDP',			f: [ 'cdr',									] },
+					{ name: 'Get CDR SDP',			value: 'getCDRSDP',			f: [ 'cdr',												] },
+					{ name: 'Get Account CDRs',		value: 'getAccountCDRs',	f: [ 'cdr', 'account',									] },
+					{ name: 'List Accounts',		value: 'listAccounts',		f: [ 		'account',									] },
+					{ name: 'Get Account Info',		value: 'getAccountInfo',	f: [ 		'account',									] },
+					{ name: 'Block Account',		value: 'blockAccount',		f: [ 		'account',									] },
+					{ name: 'Unblock Account',		value: 'unblockAccount',	f: [ 		'account',									] },
+					{ name: 'Get Customer CDRs',	value: 'getCustomerCDRs',	f: [ 'cdr', 			'customer',						] },
+					{ name: 'List Tariffs',			value: 'getTariffsList',	f: [ 								'tariff',			] },
+					{ name: 'Get Dictionary',		value: 'getDictionary',		f: [											'misc',	] },
 				];
 				
 				return methods

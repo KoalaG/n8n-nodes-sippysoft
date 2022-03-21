@@ -192,3 +192,18 @@ export const name: Name = {
     }
 
 }
+
+export const name_pattern: INodeProperties = {
+    displayName: 'Name Pattern',
+    name: 'name_pattern',
+    type: 'string',
+    required: false,
+    default: '',
+    displayOptions: {
+        show: {
+            '/methodCall': [
+                'getTariffsList',
+            ]
+        }
+    }
+}

@@ -165,7 +165,7 @@ Additionally, an XMLRPC serialiser/deserialiser module has been included.
  - [ ] [updateTariff](https://support.sippysoft.com/support/solutions/articles/3000098586-tariffs-management)
  - [ ] [deleteTariff](https://support.sippysoft.com/support/solutions/articles/3000098586-tariffs-management)
  - [ ] [getTariffInfo](https://support.sippysoft.com/support/solutions/articles/3000098586-tariffs-management)
- - [ ] [getTariffsList](https://support.sippysoft.com/support/solutions/articles/3000098586-tariffs-management)
+ - [x] [getTariffsList](https://support.sippysoft.com/support/solutions/articles/3000098586-tariffs-management)
 
 ### Calling
  - [ ] [make2WayCallback](https://support.sippysoft.com/support/solutions/articles/107448-xml-rpc-api-manage-call-back-calls)

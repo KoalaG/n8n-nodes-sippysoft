@@ -1,5 +1,5 @@
 
 
 export const PaginatedMethods = [
-    'getAccountCDRs', 'getCustomerCDRs', 'listAccounts',
+    'getAccountCDRs', 'getCustomerCDRs', 'listAccounts', 'getTariffsList'
 ];

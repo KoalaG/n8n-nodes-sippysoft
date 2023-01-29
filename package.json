@@ -35,7 +35,8 @@
     ],
     "nodes": [
       "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js"
+      "dist/nodes/HttpBin/HttpBin.node.js",
+      "dist/nodes/SippySoft/SippySoft.node.js"
     ]
   },
   "devDependencies": {
@@ -48,5 +49,9 @@
     "n8n-workflow": "*",
     "prettier": "^2.7.1",
     "typescript": "~4.8.4"
+  },
+  "dependencies": {
+    "@foxglove/xmlrpc": "^1.3.0",
+    "@koush/axios-digest-auth": "^0.8.5"
   }
 }

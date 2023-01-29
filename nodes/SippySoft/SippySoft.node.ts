@@ -6,11 +6,12 @@ import {
     INodeType,
     INodeTypeDescription,
     NodeExecutionWithMetadata,
+		ILoadOptionsFunctions,
+		INodePropertyOptions
 } from 'n8n-workflow';
 
-import {
-    OptionsWithUri,
-} from 'request';
+import { serializeMethodCall, Deserializer } from '@foxglove/xmlrpc';
+import AxiosDigestAuth from '@koush/axios-digest-auth';
 
 export class SippySoft implements INodeType {
 
@@ -50,28 +51,82 @@ export class SippySoft implements INodeType {
                 name: 'resource',
                 type: 'options',
                 options: [
-                    { name: 'CDR',      value: 'cdr', },
+									{ name: 'CDR',		value: 'cdr'		},
+									{ name: 'Account',	value: 'account'	},
+									{ name: 'Customer',	value: 'customer'	},
+									{ name: 'Tariff',   value: 'tariff'		},
+									{ name: 'Misc',		value: 'misc'		},
                 ],
-                default: 'contact',
+                default: '',
                 noDataExpression: true,
                 required: true,
                 description: 'Create a new contact',
             },
 
+						{
+							displayName: 'Operation',
+							name: 'operation',
+							type: 'options',
+							required: true,
+							default: '',
+							typeOptions: {
+								loadOptionsDependsOn: [ 'resource' ],
+								loadOptionsMethod: 'loadOperations',
+							},
+							placeholder: 'Select Method Call',
+							description: 'The method to call on the Sippy API',
+						},
+
         ]
     }
 
+		methods = {
+			loadOptions: {
+
+				async loadOperations(this: ILoadOptionsFunctions): Promise<INodePropertyOptions[]> {
+					const callResource = this.getCurrentNodeParameter('resource') as string;
+
+					const operations = [
+						{ name: 'Get CDR SDP',				value: 'getCDRSDP',				resources: [ 'cdr',																						] },
+						{ name: 'Get Account CDRs',		value: 'getAccountCDRs',	resources: [ 'cdr', 'account',																] },
+						{ name: 'List Accounts',			value: 'listAccounts',		resources: [ 				'account',																] },
+						{ name: 'Get Account Info',		value: 'getAccountInfo',	resources: [ 				'account',																] },
+						{ name: 'Block Account',			value: 'blockAccount',		resources: [ 				'account',																] },
+						{ name: 'Unblock Account',		value: 'unblockAccount',	resources: [ 				'account',																] },
+						{ name: 'Get Customer CDRs',	value: 'getCustomerCDRs',	resources: [ 'cdr', 						'customer',										] },
+						{ name: 'List Tariffs',				value: 'getTariffsList',	resources: [ 																'tariff',					] },
+						{ name: 'Get Dictionary',			value: 'getDictionary',		resources: [																					'misc',	] },
+					];
+
+					return operations
+						.filter(({resources}) => resources.includes(callResource))
+						.sort(function(a, b) {
+							var textA = a.name.toUpperCase();
+							var textB = b.name.toUpperCase();
+							return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+						})
+						.map(({ name, value }) => ({ name, value }));
+
+				},
+
+			}
+		}
+
     async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][] | NodeExecutionWithMetadata[][] | null> {
 
-        // Handle data coming from previous nodes
-        const items = this.getInputData();
-        let responseData;
-        const returnData: any[] = [];
-        const resource = this.getNodeParameter('resource', 0) as string;
-        const operation = this.getNodeParameter('operation', 0) as string;
+			// Handle data coming from previous nodes
+			const items = this.getInputData();
 
-        // For each item, make an API call to create a contact
-        for (let i = 0; i < items.length; i++) {
+			let responseData;
+			const returnData: any[] = [];
+
+			// For each item, make an API call to create a contact
+			for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
+
+					const sippyDomain = this.getNodeParameter('sippyDomain', itemIndex) as string;
+					const httpDigestAuth = await this.getCredentials('httpDigestAuth') as { user: string, password: string };
+					const operation = this.getNodeParameter('operation', itemIndex, '') as string;
+
             if (resource === 'contact') {
                 if (operation === 'create') {
                     // Get email input

@@ -1,19 +1,19 @@
 {
   "name": "n8n-nodes-sippysoft",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.1.1",
+  "description": "A N8N Node for SippySoft.",
   "keywords": [
     "n8n-community-node-package"
   ],
   "license": "MIT",
   "homepage": "",
   "author": {
-    "name": "",
+    "name": "Gavin",
     "email": "gavin@lightningip.com.au"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LightningIP/n8n-sippysoft.git"
+    "url": "git+https://github.com/KoalaG/n8n-nodes-sippysoft.git"
   },
   "main": "index.js",
   "scripts": {

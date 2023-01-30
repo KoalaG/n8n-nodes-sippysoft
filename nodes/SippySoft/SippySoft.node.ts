@@ -34,7 +34,7 @@ export class Sippysoft implements INodeType {
 
 			credentials: [
 				{
-					name: 'httpDigestAuthApi',
+					name: 'sippysoftApi',
 					required: true,
 				}
 			],
@@ -93,10 +93,26 @@ export class Sippysoft implements INodeType {
 					type: 'collection',
 					placeholder: 'Add Pagination Parameter',
 					default: {},
-					displayOptions: { show: { '/resource': paginatedMethods } },
+					displayOptions: { show: { '/operation': paginatedMethods } },
 					options: [
 						SippyParams.offset,
 						SippyParams.limit,
+					]
+				},
+
+				{
+					displayName: 'Resource Parameter',
+					name: 'paramsResource',
+					type: 'collection',
+					placeholder: 'Add Resource Parameter',
+					default: {},
+					displayOptions: { show: { '/operation': [
+						'getAccountCDRs', 'getAccountInfo', 'blockAccount', 'unblockAccount', 'getCDRSDP',
+					] } },
+					options: [
+						SippyParams.i_account,
+						SippyParams.i_cdr,
+						SippyParams.i_call,
 					]
 				},
 
@@ -107,7 +123,7 @@ export class Sippysoft implements INodeType {
 					type: 'collection',
 					placeholder: 'Add CDR Parameter',
 					default: {},
-					displayOptions: { show: { '/methodCall': [ 'getAccountCDRs', ] } },
+					displayOptions: { show: { '/operation': [ 'getAccountCDRs', ] } },
 					options: [
 						SippyParams.start_date,
 						SippyParams.end_date,
@@ -124,7 +140,7 @@ export class Sippysoft implements INodeType {
 					type: 'collection',
 					placeholder: 'Add DID Parameter',
 					default: {},
-					displayOptions: { show: { '/methodCall': [ 'getDIDsList', ] } },
+					displayOptions: { show: { '/operation': [ 'getDIDsList', ] } },
 					options: [
 						SippyParams.did,
 						SippyParams.incoming_did,
@@ -142,7 +158,7 @@ export class Sippysoft implements INodeType {
 					type: 'collection',
 					placeholder: 'Add Other Parameter',
 					default: {},
-					displayOptions: { show: { '/methodCall': [
+					displayOptions: { show: { '/operation': [
 						'getDictionary', 'getTariffsList',
 					]}},
 					options: [
@@ -197,7 +213,7 @@ export class Sippysoft implements INodeType {
 			for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 
 					const sippyDomain = this.getNodeParameter('sippyDomain', itemIndex) as string;
-					const httpDigestAuth = await this.getCredentials('httpDigestAuth') as { user: string, password: string };
+					const httpDigestAuth = await this.getCredentials('sippysoftApi') as { username: string, password: string };
 					const operation = this.getNodeParameter('operation', itemIndex, '') as string;
 
 					// Get Paramaters
@@ -226,7 +242,7 @@ export class Sippysoft implements INodeType {
 
 					// Setup Authentication
 					const digestAuth = new AxiosDigestAuth({
-						username: httpDigestAuth.user as string,
+						username: httpDigestAuth.username as string,
 						password: httpDigestAuth.password as string,
 					});
 

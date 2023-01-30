@@ -25,7 +25,7 @@ export const i_account: INodeProperties = {
 	name: 'i_account',
 	type: 'number',
 	default: '',
-	displayOptions: { show: { '/methodCall': [
+	displayOptions: { show: { '/operation': [
 		'getAccountCDRs', 'getAccountInfo', 'blockAccount', 'unblockAccount',
 		'getDIDsList',
 	] } }
@@ -36,7 +36,7 @@ export const i_customer: INodeProperties = {
 	name: 'i_customer',
 	type: 'number',
 	default: '',
-	displayOptions: { show: { '/methodCall': [
+	displayOptions: { show: { '/operation': [
 		'getCustomerCDRs', 'getCustomerInfo'
 	] } }
 }
@@ -46,7 +46,7 @@ export const i_call: INodeProperties = {
 	name: 'i_call',
 	type: 'number',
 	default: '',
-	displayOptions: { show: { '/methodCall': [
+	displayOptions: { show: { '/operation': [
 		'getCDRSDP'
 	] } }
 }
@@ -56,7 +56,7 @@ export const i_cdr: INodeProperties = {
 	name: 'i_cdr',
 	type: 'string',
 	default: '',
-	displayOptions: { show: { '/methodCall': [
+	displayOptions: { show: { '/operation': [
 		'getAccountCDRs',
 	] } }
 }
@@ -68,7 +68,7 @@ export const start_date: INodeProperties = {
 	default: '',
 	displayOptions: {
 		show: {
-			'/methodCall': [
+			'/operation': [
 				'getAccountCDRs',
 			]
 		}
@@ -82,7 +82,7 @@ export const end_date: INodeProperties = {
 	default: '',
 	displayOptions: {
 		show: {
-			'/methodCall': [
+			'/operation': [
 				'getAccountCDRs',
 			]
 		}
@@ -96,7 +96,7 @@ export const cli: INodeProperties = {
 	default: '',
 	displayOptions: {
 		show: {
-			'/methodCall': [
+			'/operation': [
 				'getAccountCDRs',
 			]
 		}
@@ -110,7 +110,7 @@ export const cld: INodeProperties = {
 	default: '',
 	displayOptions: {
 		show: {
-			'/methodCall': [
+			'/operation': [
 				'getAccountCDRs',
 			]
 		}
@@ -130,7 +130,7 @@ export const type: Type = {
 		default: 'non_zero',
 		displayOptions: {
 			show: {
-				'/methodCall': [
+				'/operation': [
 					'getAccountCDRs',
 				]
 			}
@@ -153,7 +153,7 @@ export const type: Type = {
 		required: true,
 		default: 'web',
 		displayOptions: { show: {
-			'/methodCall': [ 'getDictionary' ],
+			'/operation': [ 'getDictionary' ],
 			'name': [ 'languages' ],
 		} },
 		options: [
@@ -175,7 +175,7 @@ export const name: Name = {
 		type: 'options',
 		required: true,
 		default: 'ca_list_types',
-		displayOptions: { show: { '/methodCall': [
+		displayOptions: { show: { '/operation': [
 			'getDictionary'
 		] } },
 		options: [
@@ -206,7 +206,7 @@ export const name_pattern: INodeProperties = {
 	default: '',
 	displayOptions: {
 		show: {
-			'/methodCall': [
+			'/operation': [
 				'getTariffsList',
 			]
 		}
@@ -221,7 +221,7 @@ export const did : INodeProperties = {
 	default: '',
 	displayOptions: {
 		show: {
-			'/methodCall': [
+			'/operation': [
 				'addDID', 'getDIDsList',
 			]
 		}
@@ -233,7 +233,7 @@ export const incoming_did : INodeProperties = {
     name: 'incoming_did',
     type: 'string',
     default: '',
-    displayOptions: { show: { '/methodCall': [
+    displayOptions: { show: { '/operation': [
         'addDID', 'updateDID', 'getDIDsList',
     ] } }
 }
@@ -243,7 +243,7 @@ export const delegated_to: INodeProperties = {
     name: 'delegated_to',
     type: 'number',
     default: '',
-    displayOptions: { show: { '/methodCall': [
+    displayOptions: { show: { '/operation': [
         'getDIDsList',
     ] } }
 }
@@ -252,7 +252,7 @@ export const i_ivr_application: INodeProperties = {
     name: 'i_ivr_application',
     type: 'number',
     default: '',
-    displayOptions: { show: { '/methodCall': [
+    displayOptions: { show: { '/operation': [
         'getDIDsList',
     ] } },
 }
@@ -261,7 +261,7 @@ export const not_assigned: INodeProperties = {
     name: 'not_assigned',
     type: 'boolean',
     default: true,
-    displayOptions: { show: { '/methodCall': [
+    displayOptions: { show: { '/operation': [
         'getDIDsList',
     ] } },
 }

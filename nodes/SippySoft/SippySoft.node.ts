@@ -1,6 +1,5 @@
 
 import {
-    IDataObject,
     IExecuteFunctions,
     INodeExecutionData,
     INodeType,
@@ -13,71 +12,147 @@ import {
 import { serializeMethodCall, Deserializer } from '@foxglove/xmlrpc';
 import AxiosDigestAuth from '@koush/axios-digest-auth';
 
-export class SippySoft implements INodeType {
+import { paginatedMethods } from './displayrules';
+import * as SippyParams from './SippyParams';
+
+import { formatDate } from './functions/formatDate';
+
+export class Sippysoft implements INodeType {
 
     description: INodeTypeDescription = {
-        displayName: 'SippySoft',
-        name: 'sippysoft',
-        // icon
-        group: [],
-        version: 1,
-        description: "Consume SippySoft API",
-        defaults: {
-			name: 'SippySoft',
-			color: '#772244',
-        },
-        inputs: ['main'],
-        outputs: ['main'],
-        credentials: [
-            {
-                name: 'httpDigestAuth',
-                required: true,
-            }
-        ],
-        properties: [
+			displayName: 'SippySoft',
+			name: 'sippysoft',
+			group: [],
+			version: 1,
+			description: "Consume SippySoft API",
+			defaults: {
+				name: 'SippySoft',
+			},
 
-            {
-                displayName: 'SippySoft Server',
-                name: 'sippyDomain',
-                type: 'string',
-                required: true,
-                default: '',
-                placeholder: 'my.sippy.server',
-                description: 'The domain name of your SippySoft server',
-            },
+			inputs: ['main'],
+			outputs: ['main'],
 
-            {
-                displayName: 'Resource',
-                name: 'resource',
-                type: 'options',
-                options: [
-									{ name: 'CDR',		value: 'cdr'		},
-									{ name: 'Account',	value: 'account'	},
-									{ name: 'Customer',	value: 'customer'	},
-									{ name: 'Tariff',   value: 'tariff'		},
-									{ name: 'Misc',		value: 'misc'		},
-                ],
-                default: '',
-                noDataExpression: true,
-                required: true,
-                description: 'Create a new contact',
-            },
+			credentials: [
+				{
+					name: 'httpDigestAuthApi',
+					required: true,
+				}
+			],
 
-						{
-							displayName: 'Operation',
-							name: 'operation',
-							type: 'options',
-							required: true,
-							default: '',
-							typeOptions: {
-								loadOptionsDependsOn: [ 'resource' ],
-								loadOptionsMethod: 'loadOperations',
-							},
-							placeholder: 'Select Method Call',
-							description: 'The method to call on the Sippy API',
-						},
+			properties: [
 
-        ]
+				// Server
+				{
+					displayName: 'SippySoft Server',
+					name: 'sippyDomain',
+					type: 'string',
+					required: true,
+					default: '',
+					placeholder: 'my.sippy.server',
+					description: 'The domain name of your SippySoft server',
+				},
+
+				// Resource
+				{
+					displayName: 'Resource',
+					name: 'resource',
+					type: 'options',
+					options: [
+						{ name: 'Account',	value: 'account'	},
+						{ name: 'CDR',			value: 'cdr'		},
+						{ name: 'Customer',	value: 'customer'	},
+						{ name: 'Misc',			value: 'misc'		},
+						{ name: 'Tariff',   value: 'tariff'		},
+					],
+					default: 'account',
+					noDataExpression: true,
+					required: true,
+					description: 'Create a new contact',
+				},
+
+				// Operation
+				{
+					displayName: 'Operation Name or ID',
+					name: 'operation',
+					type: 'options',
+					required: true,
+					default: '',
+					typeOptions: {
+						loadOptionsDependsOn: [ 'resource' ],
+						loadOptionsMethod: 'loadOperations',
+					},
+					noDataExpression: true,
+					placeholder: 'Select Method Call',
+					description: 'Choose from the list. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				},
+
+				// Params: Pagination
+				{
+					displayName: 'Pagination',
+					name: 'paramsPaginations',
+					type: 'collection',
+					placeholder: 'Add Pagination Parameter',
+					default: {},
+					displayOptions: { show: { '/resource': paginatedMethods } },
+					options: [
+						SippyParams.offset,
+						SippyParams.limit,
+					]
+				},
+
+				// Params: CDR
+				{
+					displayName: 'CDR Parameters',
+					name: 'paramsCDR',
+					type: 'collection',
+					placeholder: 'Add CDR Parameter',
+					default: {},
+					displayOptions: { show: { '/methodCall': [ 'getAccountCDRs', ] } },
+					options: [
+						SippyParams.start_date,
+						SippyParams.end_date,
+						SippyParams.cli,
+						SippyParams.cld,
+						SippyParams.type.cdr,
+					]
+				},
+
+				// Params: DID
+				{
+					displayName: 'DID Parameters',
+					name: 'paramsDID',
+					type: 'collection',
+					placeholder: 'Add DID Parameter',
+					default: {},
+					displayOptions: { show: { '/methodCall': [ 'getDIDsList', ] } },
+					options: [
+						SippyParams.did,
+						SippyParams.incoming_did,
+						SippyParams.delegated_to,
+						SippyParams.i_account,
+						SippyParams.i_ivr_application,
+						SippyParams.not_assigned
+					]
+				},
+
+				// Params: Other
+				{
+					displayName: 'Other Parameters',
+					name: 'paramsMisc',
+					type: 'collection',
+					placeholder: 'Add Other Parameter',
+					default: {},
+					displayOptions: { show: { '/methodCall': [
+						'getDictionary', 'getTariffsList',
+					]}},
+					options: [
+						SippyParams.name.dictionary,
+						SippyParams.type.dictionary,
+						SippyParams.name_pattern,
+					]
+				}
+
+			]
     }
 
 		methods = {
@@ -116,8 +191,6 @@ export class SippySoft implements INodeType {
 
 			// Handle data coming from previous nodes
 			const items = this.getInputData();
-
-			let responseData;
 			const returnData: any[] = [];
 
 			// For each item, make an API call to create a contact
@@ -127,37 +200,54 @@ export class SippySoft implements INodeType {
 					const httpDigestAuth = await this.getCredentials('httpDigestAuth') as { user: string, password: string };
 					const operation = this.getNodeParameter('operation', itemIndex, '') as string;
 
-            if (resource === 'contact') {
-                if (operation === 'create') {
-                    // Get email input
-                    const email = this.getNodeParameter('email', i) as string;
-                    // Get additional fields input
-                    const additionalFields = this.getNodeParameter('additionalFields', i) as IDataObject;
-                    const data: IDataObject = {
-                        email,
-                    };
+					// Get Paramaters
+					const paramsPaginations: any = this.getNodeParameter('paramsPaginations', itemIndex, {});
+					const paramsResource: any = this.getNodeParameter('paramsResource', itemIndex, {});
+					const paramsCDR: any = this.getNodeParameter('paramsCDR', itemIndex, {});
+					const paramsDID: any = this.getNodeParameter('paramsDID', itemIndex, {});
+					const paramsMisc: any = this.getNodeParameter('paramsMisc', itemIndex, {});
 
-                    Object.assign(data, additionalFields);
+					// Format specific parameter values
+					if (paramsCDR.start_date) {
+						paramsCDR.start_date = formatDate(paramsCDR.start_date);
+					}
+					if (paramsCDR.end_date) {
+						paramsCDR.end_date = formatDate(paramsCDR.end_date);
+					}
 
-                    // Make HTTP request according to https://sendgrid.com/docs/api-reference/
-                    const options: OptionsWithUri = {
-                        headers: {
-                            'Accept': 'application/json',
-                        },
-                        method: 'PUT',
-                        body: {
-                            contacts: [
-                                data,
-                            ],
-                        },
-                        uri: `https://api.sendgrid.com/v3/marketing/contacts`,
-                        json: true,
-                    };
-                    responseData = await this.helpers.requestWithAuthentication.call(this, 'friendGridApi', options);
-                    returnData.push(responseData);
-                }
-            }
+					// Generate XML String
+					const xmlString = serializeMethodCall(operation, [ {
+						...paramsPaginations,
+						...paramsResource,
+						...paramsCDR,
+						...paramsDID,
+						...paramsMisc,
+					} ]);
+
+					// Setup Authentication
+					const digestAuth = new AxiosDigestAuth({
+						username: httpDigestAuth.user as string,
+						password: httpDigestAuth.password as string,
+					});
+
+					// Make Call
+					const rawResponse = await digestAuth.request({
+						url: `https://${sippyDomain}/xmlapi/xmlapi`,
+						headers: {
+							Accept: "application/xml",
+							"Content-Type": "application/xml"
+						},
+						method: "POST",
+						data: xmlString,
+					});
+
+					// Deserialise response
+					const dexml = new Deserializer();
+					const responseData = (await dexml.deserializeMethodResponse(rawResponse.data));
+
+					returnData.push(responseData);
         }
+
         // Map data to n8n data structure
         return [this.helpers.returnJsonArray(returnData)];
 

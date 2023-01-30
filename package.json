@@ -9,7 +9,7 @@
   "homepage": "",
   "author": {
     "name": "",
-    "email": ""
+    "email": "gavin@lightningip.com.au"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
     "nodes": [
       "dist/nodes/ExampleNode/ExampleNode.node.js",
       "dist/nodes/HttpBin/HttpBin.node.js",
-      "dist/nodes/SippySoft/SippySoft.node.js"
+      "dist/nodes/Sippysoft/Sippysoft.node.js"
     ]
   },
   "devDependencies": {

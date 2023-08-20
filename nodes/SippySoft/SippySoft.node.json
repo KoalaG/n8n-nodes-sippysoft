@@ -1,3 +1,11 @@
 {
-	"node": "n8n-nodes-sippysoft"
+	"node": "n8n-nodes-base.sippysoft",
+	"nodeVersion": 2,
+	"codexVersion": "1.0",
+	"categories": [
+		"Miscellaneous",
+		"Development",
+		"Communication"
+	],
+	"resources": {}
 }

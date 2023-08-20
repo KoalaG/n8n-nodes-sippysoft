@@ -15,7 +15,7 @@ export class Sippysoft extends VersionedNodeType {
 		const baseDescription: INodeTypeBaseDescription = {
 			displayName: 'SippySoft',
 			name: 'sippysoft',
-			//icon: 'file:sippysoft.svg',
+			icon: 'file:Sippysoft.svg',
 			group: [],
 			subtitle: '={{$parameter["resource"] + ": " + $parameter["operation"]}}',
 			description: "Consume SippySoft API",

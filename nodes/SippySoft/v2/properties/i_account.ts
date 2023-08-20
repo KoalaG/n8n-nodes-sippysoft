@@ -1,17 +1,14 @@
-import { INodeProperties } from "n8n-workflow";
+import { ICollectionOption } from "./IOverrides.type";
 
-export default function i_account(operation: string, required = false) : INodeProperties {
+export default function i_account(
+	overrides?: Partial<ICollectionOption>
+) : ICollectionOption {
 	return {
 		displayName: 'Account ID',
 		description: 'The internal ID of the account',
 		name: 'i_account',
 		type: 'number',
 		default: null,
-		required,
-		displayOptions: {
-			show: {
-				operation: [ operation ],
-			},
-		},
+		...overrides,
 	}
 }

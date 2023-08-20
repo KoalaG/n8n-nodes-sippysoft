@@ -15,33 +15,35 @@ export async function addDID(
 	index: number,
 ): Promise<INodeExecutionData[]> {
 
-	const i_account = this.getNodeParameter('i_account', index) as number;
+	const required = this.getNodeParameter('required', index) as {
+		did: string;
+		incoming_did: string;
+	};
+
+	const optional = this.getNodeParameter('optional', index) as {
+		translation_rule: string;
+		cli_translation_rule: string;
+		descriptions: string;
+		i_ivr_application: string;
+		i_account: string;
+		i_vendor: string;
+		i_connection: string;
+	}
 
 	try {
 
 		const responseData = await apiRequest.call(this, 'addDID', {
-			i_account,
+			...required,
+			...optional,
 		}) as GetRegistrationStatusResponse;
 
 		return this.helpers.returnJsonArray({
-			i_account,
 			...responseData,
 			expires_raw: responseData.expires,
 			expires: parseDate(responseData.expires),
 		});
 
 	} catch (err) {
-
-		// Handle the case where the account is not registered
-		if (err.faultCode == 403 && err.faultString == 'Account is not registered') {
-			return this.helpers.returnJsonArray([{
-				i_account,
-				result: 'Not registered'
-			}]);
-		}
-
-		// Throw any other errors
 		throw err;
-
 	}
 }

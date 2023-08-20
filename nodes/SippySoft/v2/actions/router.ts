@@ -2,6 +2,7 @@ import type { IExecuteFunctions, IDataObject, INodeExecutionData } from 'n8n-wor
 
 import * as account from './account';
 import * as did from './did';
+import * as cdr from './cdr';
 /*import * as message from './message';
 import * as reaction from './reaction';
 import * as user from './user';*/
@@ -27,7 +28,11 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 			}
 			else if (sippysoft.resource === 'did') {
 				responseData = await did[sippysoft.operation].execute.call(this, i);
-			}/* else if (mattermost.resource === 'message') {
+			}
+			else if (sippysoft.resource === 'cdr') {
+				responseData = await cdr[sippysoft.operation].execute.call(this, i);
+			}
+			/* else if (mattermost.resource === 'message') {
 				responseData = await message[mattermost.operation].execute.call(this, i);
 			} else if (mattermost.resource === 'reaction') {
 				responseData = await reaction[mattermost.operation].execute.call(this, i);

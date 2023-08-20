@@ -1,12 +1,13 @@
 import { ICollectionOption } from "./IOverrides.type";
 
-export default function did(
+
+export default function cld(
 	overrides?: Partial<ICollectionOption>
 ) : ICollectionOption {
 	return {
-		displayName: 'DID Number',
-		description: 'The canonic E.164 number that is used by the system for billing and accounting purposes',
-		name: 'did',
+		displayName: 'CLD',
+		description: 'The CLD of the call',
+		name: 'cld',
 		type: 'string',
 		default: '',
 		...overrides,

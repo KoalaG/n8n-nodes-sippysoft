@@ -1,8 +1,8 @@
 /* eslint-disable n8n-nodes-base/node-filename-against-convention */
 import type { INodeTypeDescription } from 'n8n-workflow';
 import * as account from './account';
+import * as cdr from './cdr';
 import * as did from './did';
-//import * as cdr from './cdr';
 //import * as customer from './customer';
 //import * as misc from './misc';
 //import * as tarrif from './tarrif';
@@ -49,7 +49,7 @@ export const versionDescription: INodeTypeDescription = {
 		},
 
 		...account.descriptions,
-		//...cdr.descriptions,
+		...cdr.descriptions,
 		//...customer.descriptions,
 		...did.descriptions,
 		//...misc.descriptions,

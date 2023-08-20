@@ -1,17 +1,14 @@
-import { INodeProperties } from "n8n-workflow";
+import { ICollectionOption } from "./IOverrides.type";
 
-export default function i_ivr_application(operation: string, required = false) : INodeProperties {
+export default function i_ivr_application(
+	overrides?: Partial<ICollectionOption>
+) : ICollectionOption {
 	return {
 		displayName: 'IVR Application ID',
 		description: 'The internal ID of the IVR application',
 		name: 'i_ivr_application',
 		type: 'number',
 		default: null,
-		required,
-		displayOptions: {
-			show: {
-				operation: [ operation ],
-			},
-		},
+		...overrides,
 	}
 }

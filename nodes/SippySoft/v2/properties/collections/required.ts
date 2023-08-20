@@ -1,26 +1,17 @@
 import { INodeProperties } from "n8n-workflow";
-import { ICollectionOption, ICollectionOverrides } from "../IOverrides.type";
+import { ICollectionOption } from "../IOverrides.type";
 
-export default function requiredCollection(
+export default function required(
 	operation: string,
 	parameters: ICollectionOption[],
-	overrides?: ICollectionOverrides,
-) : INodeProperties {
-	return {
-		displayName: overrides?.displayName || 'Parameters',
-		name: overrides?.name || 'required',
-		default: {},
-		...overrides,
-		type: 'fixedCollection',
+) : INodeProperties[] {
+	return parameters.map((parameter) => ({
+		...parameter,
 		displayOptions: {
 			show: {
 				operation: [ operation ],
 			},
 		},
-		options: parameters.map((parameter) => ({
-			...parameter,
-			displayOptions: undefined,
-			required: true,
-		}))
-	}
+		required: true,
+	}));
 }

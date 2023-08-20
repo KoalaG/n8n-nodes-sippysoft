@@ -10,6 +10,13 @@ export class SippySoftApi implements ICredentialType {
 	//documentationUrl = '<your-docs-url>';
 	properties: INodeProperties[] = [
 		{
+			displayName: 'Server',
+			name: 'server',
+			type: 'string',
+			default: '',
+			placeholder: 'my.sippy.server',
+		},
+		{
 			displayName: 'Username',
 			name: 'username',
 			type: 'string',

@@ -27,7 +27,7 @@ export const i_account: INodeProperties = {
 	default: '',
 	displayOptions: { show: { '/operation': [
 		'getAccountCDRs', 'getAccountInfo', 'blockAccount', 'unblockAccount',
-		'getDIDsList',
+		'getDIDsList', 'getRegistrationStatus',
 	] } }
 }
 

@@ -1,47 +1,188 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+# n8n-nodes-_node-sippysoft_
 
-# n8n-nodes-starter
+This is an n8n community node. It lets you use _Sippy Software Softswitch_ in your n8n workflows.
 
-This repo contains example nodes to help you get started building your own custom integrations for [n8n](n8n.io). It includes the node linter and other dependencies.
+*Sippy Software Softswitch provides advanced VoIP billing, smart routing, network protection and border control mechanisms all on a single platform.*
 
-To make your custom node available to the community, you must create it as an npm package, and [submit it to the npm registry](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry).
+Development of this node has been prioritised for functions required by its author's. If you would like to contribute please feel free to submit a pull request for review.
 
-## Prerequisites
+[n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
-You need the following installed on your development machine:
+[Installation](#installation)
+[Operations](#operations)
+[Credentials](#credentials)
+[Compatibility](#compatibility)
+[Usage](#usage)
+[Resources](#resources)
+[Version history](#version-history)
 
-* [git](https://git-scm.com/downloads)
-* Node.js and npm. Minimum version Node 16. You can find instructions on how to install both using nvm (Node Version Manager) for Linux, Mac, and WSL [here](https://github.com/nvm-sh/nvm). For Windows users, refer to Microsoft's guide to [Install NodeJS on Windows](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows).
-* Install n8n with:
-	```
-	npm install n8n -g
-	```
-* Recommended: follow n8n's guide to [set up your development environment](https://docs.n8n.io/integrations/creating-nodes/build/node-development-environment/).
+## Installation
 
+Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
 
-## Using this starter
+## Operations
 
-These are the basic steps for working with the starter. For detailed guidance on creating and publishing nodes, refer to the [documentation](https://docs.n8n.io/integrations/creating-nodes/).
+The following lists operations and their implementation status. A link to the Sippy Software documentation for each operation is included for convinience.
 
-1. [Generate a new repository](https://github.com/n8n-io/n8n-nodes-starter/generate) from this template repository.
-2. Clone your new repo:
-    ```
-    git clone https://github.com/<your organization>/<your-repo-name>.git
-    ```
-3. Run `npm i` to install dependencies.
-4. Open the project in your editor.
-5. Browse the examples in `/nodes` and `/credentials`. Modify the examples, or replace them with your own nodes.
-6. Update the `package.json` to match your details.
-7. Run `npm run lint` to check for errors or `npm run lintfix` to automatically fix errors when possible.
-8. Test your node locally. Refer to [Run your node locally](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/) for guidance.
-9. Replace this README with documentation for your node. Use the [README_TEMPLATE](README_TEMPLATE.md) to get started.
-10. Update the LICENSE file to use your details.
-11. [Publish](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry) your package to npm.
+### Account Manipulation
 
-## More information
+* [ ] List Accounts ([listAccounts](https://support.sippysoft.com/support/solutions/articles/107322-xml-rpc-api-listing-accounts))
+* [ ] Create Account
+* [ ] Update Account ([updateAccount](https://support.sippysoft.com/support/solutions/articles/107320-xml-rpc-api-updating-accounts))
+* [ ] Get Account Info ([getAccountInfo](https://support.sippysoft.com/support/solutions/articles/107327-xml-rpc-api-retrieving-account-information))
+* [ ] Get Registration Status ([getRegistrationStatus](https://support.sippysoft.com/support/solutions/articles/107366-xml-rpc-api-get-sip-registration-status-of-an-account))
+* [ ] Reset One Time Password ([resetAccountOneTimePassword](https://support.sippysoft.com/support/solutions/articles/107399-xml-rpc-api-resetting-one-time-password-for-web-interface-login-account-))
 
-Refer to our [documentation on creating nodes](https://docs.n8n.io/integrations/creating-nodes/) for detailed information on building your own nodes.
+#### Incoming Routes
 
-## License
+* [ ] Update Incoming Route ([updateIncomingRoute](https://support.sippysoft.com/support/solutions/articles/3000032223-xml-rpc-api-account-incoming-routing-management))
+* [ ] Get Incoming Routes List ([getIncomingRoutesList](https://support.sippysoft.com/support/solutions/articles/3000032223-xml-rpc-api-account-incoming-routing-management))
 
-[MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+#### Follow Me Management
+
+* [ ] Get Follow Me Options ([getFollowMeOptions](https://support.sippysoft.com/support/solutions/articles/107412-xml-rpc-api-follow-me-feature-management))
+* [ ] Set Follow Me Options ([setFollowMeOptions](https://support.sippysoft.com/support/solutions/articles/107412-xml-rpc-api-follow-me-feature-management))
+* [ ] List Follow Me Entries ([listFollowMeEntries](https://support.sippysoft.com/support/solutions/articles/107412-xml-rpc-api-follow-me-feature-management))
+* [ ] Add Follow Me Entries ([addFollowMeEntry](https://support.sippysoft.com/support/solutions/articles/107412-xml-rpc-api-follow-me-feature-management))
+* [ ] Update Follow Me Entry ([updateFollowMeEntry](https://support.sippysoft.com/support/solutions/articles/107412-xml-rpc-api-follow-me-feature-management))
+* [ ] Delete Follow Me Entry ([getFollowMeOptions](https://support.sippysoft.com/support/solutions/articles/107412-xml-rpc-api-follow-me-feature-management))
+
+#### Trunk Management
+
+* [ ] createTrunk ([createTrunk](https://support.sippysoft.com/support/solutions/articles/3000116551-xml-rpc-api-trunks-management-versions-from-2022-))
+* [ ] updateTrunk
+* [ ] deleteTrunk
+* [ ] getTrunkInfo
+* [ ] getTrunksList
+* [ ] createTrunkConnection ([createTrunkConnection](https://support.sippysoft.com/support/solutions/articles/3000116552-xml-rpc-api-trunk-connections-management))
+* [ ] updateTrunkConnection
+* [ ] deleteTrunkConnection
+* [ ] getTrunkConnectionInfo
+* [ ] getTrunkConnectionsList
+
+#### Rates & Plans
+
+* [ ] getAccountRates ([getAccountRates](https://support.sippysoft.com/support/solutions/articles/107408-xml-rpc-api-getting-rates-of-an-account))
+* [ ] matchAccountMinutePlan ([matchAccountMinutePlan](https://support.sippysoft.com/support/solutions/articles/107406-xml-rpc-api-matching-cld-with-account-minute-plans))
+
+#### CLI Mapping
+
+* [ ] Add CLI Mapping ([addCLIMapping](https://support.sippysoft.com/support/solutions/articles/107328-xml-rpc-api-trusted-numbers-manipulation-and-cli-mapping))
+* [ ] Update CLI Mapping ([updateCLIMapping](https://support.sippysoft.com/support/solutions/articles/107328-xml-rpc-api-trusted-numbers-manipulation-and-cli-mapping))
+* [ ] Delete CLI Mapping ([delCLIMapping](https://support.sippysoft.com/support/solutions/articles/107328-xml-rpc-api-trusted-numbers-manipulation-and-cli-mapping))
+* [ ] List CLI Mapping ([listCLIMapping](https://support.sippysoft.com/support/solutions/articles/107328-xml-rpc-api-trusted-numbers-manipulation-and-cli-mapping))
+* [ ] Find CLI Mapping ([findCLIMapping](https://support.sippysoft.com/support/solutions/articles/107328-xml-rpc-api-trusted-numbers-manipulation-and-cli-mapping))
+
+#### Smart Dials
+
+* [ ] Add Smart Dial ([addSmartDial](https://support.sippysoft.com/support/solutions/articles/107333-xml-rpc-api-smart-dials-manipulation))
+* [ ] Update Smart Dial ([updateSmartDial](https://support.sippysoft.com/support/solutions/articles/107333-xml-rpc-api-smart-dials-manipulation))
+* [ ] Delete Smart Dial ([deleteSmartDial](https://support.sippysoft.com/support/solutions/articles/107333-xml-rpc-api-smart-dials-manipulation))
+* [ ] List Smart Dial ([listSmartDial](https://support.sippysoft.com/support/solutions/articles/107333-xml-rpc-api-smart-dials-manipulation))
+
+#### Post Authentiaction Rules
+
+* [ ] listPostAuthRules ([listPostAuthRules](https://support.sippysoft.com/support/solutions/articles/3000105881-xml-rpc-api-post-authentication-rules-management))
+* [ ] getPostAuthRuleInfo
+* [ ] deletePostAuthRule
+* [ ] updatePostAuthRule
+* [ ] addPostAuthRule
+
+#### Hot Dial Numbers
+
+* [ ] addHotDialNumber ([addHotDialNumber](https://support.sippysoft.com/support/solutions/articles/107330-xml-rpc-api-hot-dial-numbers-manipulation))
+* [ ] delHotDialNumber
+* [ ] updateHotDialNumber
+* [ ] listHotDialNumbers
+
+### Payments
+
+* [ ] getPaymentInfo
+* [ ] getPaymentsList
+* [ ] rechargeVoucher ([rechargeVoucher](https://support.sippysoft.com/support/solutions/articles/107438-xml-rpc-api-top-up-account-using-recharge-voucher))
+* [ ] Make Payment ([makePayment](https://support.sippysoft.com/support/solutions/articles/107443-xml-rpc-api-make-payments-with-a-debit-credit-card))
+* [ ] Make Payment By Card
+
+#### Card Manipulation
+
+*Look, it is probably not the best idea to have raw credit card numbers pass through n8n, these calls should probably never be implemented, but have been included here for transparency on the implementation progress.*
+
+* [ ] addDebitCreditCard
+* [ ] updateDebitCreditCard
+* [ ] deleteDebitCreditCard
+* [ ] getDebitCreditCardInfo
+* [ ] listDebitCreditCards
+
+#### Account Balance Manipulation
+
+* [ ] accountAddFunds ([accountAddFunds](https://support.sippysoft.com/support/solutions/articles/107440-xml-rpc-api-refunding-an-account))
+* [ ] accountCredit ([accountCredit](https://support.sippysoft.com/support/solutions/articles/107440-xml-rpc-api-refunding-an-account))
+* [ ] accountDebit ([accountDebit](https://support.sippysoft.com/support/solutions/articles/107440-xml-rpc-api-refunding-an-account))
+
+#### Vendor Balance Manipulation
+
+* [ ] vendorAddFunds
+* [ ] vendorCredit
+* [ ] vendorDebit
+
+#### Customer Balance Manipulation
+
+* [ ] customerAddFunds
+* [ ] customerCredit
+* [ ] customerDebit
+
+#### Low Balances
+
+* [ ] getLowBalance
+* [ ] setLowBalance
+
+### CDRs Data Retrieving
+
+* [ ] exportVendorsCDRs_Mera [XML-RPC API - Exporting Vendors CDR to Mera Format : Sippy Software, Inc.](https://support.sippysoft.com/support/solutions/articles/107436-xml-rpc-api-exporting-vendors-cdr-to-mera-format)
+* [ ] getCustomerCDRs [getCustomerCDRs](https://support.sippysoft.com/support/solutions/articles/107429-xml-rpc-api-get-cdrs-of-a-customer)
+* [ ] getAccountCDRs [getAccountCDRs](https://support.sippysoft.com/support/solutions/articles/107367-xml-rpc-api-get-cdrs-of-an-account)
+* [ ] getCDRSDP [XML-RPC API - Retrieve SDP data of a call : Sippy Software, Inc.](https://support.sippysoft.com/support/solutions/articles/3000039695-xml-rpc-api-retrieve-sdp-data-of-a-call)
+
+### DID Management
+
+* [ ] addDID
+* [ ] updateDID
+* [ ] deleteDID
+* [ ] getDIDInfo
+* [ ] getDIDsList
+* [ ] getDIDChargingGroupInfo
+* [ ] addDIDDelegation
+* [ ] updateDIDDelegation
+* [ ] deleteDIDDelegation
+
+### Miscellaneous
+
+* [ ] getMonitoringGraph [getMonitoringGraph](https://support.sippysoft.com/support/solutions/articles/107509-xml-rpc-api-monitoring)
+* [ ] Get Monitoring Graph Data ([getMonitoringGraphData](https://support.sippysoft.com/support/solutions/articles/107509-xml-rpc-api-monitoring))
+
+## Credentials
+
+You will need to have your Softswitch API credentials setup and enabled. When setting up the credentials you will be asked to enter your server domain name, please use a domain name that has been setup in your softswitch with a valid SSL certificate.
+
+Please note, these credentials will not work with the standard HTTP Request node due to an issue in compatibility between the default digest authentication n8n uses and the implementation used by the softswitch.
+
+## Compatibility
+
+This node *should* work in any version of n8n, however, has been tested only on versions since 1.0.0.
+
+## Usageincoming_did
+
+* **Trunks Management**
+  Due to changes in the Sippy Softswitch API, trunk management calls are only compatible with versions of the softswitch from 2022 onwards.
+* **DID Management**
+  New features present in 2023 have not yet been implemented such as DID Ranges.
+
+## Resources
+
+* [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
+* [Sippy Software XML-RPC API documentation](https://support.sippysoft.com/support/solutions/107132)
+
+## Version history
+
+1. This version was only used internally by node authors, once proof of concept was delivered, best practice of versioning nodes was implement. Version 1 has remained purely for backwards compatibility on those existing internal workflows and is not recommended for general use at all.
+2. Following best practice of n8n node code directory structure, this version will be used while adding all the Softswitch API calls, of which there are many. Unless a major change to the Sippy API happens before completing that task.

@@ -27,7 +27,7 @@ The following lists operations and their implementation status. A link to the Si
 ### Account Manipulation
 
 * [X] List Accounts ([listAccounts](https://support.sippysoft.com/support/solutions/articles/107322-xml-rpc-api-listing-accounts))
-* [ ] Create Account
+* [ ] Create Account ()
 * [ ] Update Account ([updateAccount](https://support.sippysoft.com/support/solutions/articles/107320-xml-rpc-api-updating-accounts))
 * [ ] Get Account Info ([getAccountInfo](https://support.sippysoft.com/support/solutions/articles/107327-xml-rpc-api-retrieving-account-information))
 * [X] Get Registration Status ([getRegistrationStatus](https://support.sippysoft.com/support/solutions/articles/107366-xml-rpc-api-get-sip-registration-status-of-an-account))
@@ -138,10 +138,10 @@ The following lists operations and their implementation status. A link to the Si
 
 ### CDRs Data Retrieving
 
-* [ ] exportVendorsCDRs_Mera [exportVendorsCDRs_Mera](https://support.sippysoft.com/support/solutions/articles/107436-xml-rpc-api-exporting-vendors-cdr-to-mera-format)
-* [ ] getCustomerCDRs [getCustomerCDRs](https://support.sippysoft.com/support/solutions/articles/107429-xml-rpc-api-get-cdrs-of-a-customer)
-* [ ] Get Account CDRs [getAccountCDRs](https://support.sippysoft.com/support/solutions/articles/107367-xml-rpc-api-get-cdrs-of-an-account)
-* [ ] getCDRSDP [XML-RPC API - Retrieve SDP data of a call : Sippy Software, Inc.](https://support.sippysoft.com/support/solutions/articles/3000039695-xml-rpc-api-retrieve-sdp-data-of-a-call)
+* [ ] Export Vendor CDRs (Mera) ([exportVendorsCDRs_Mera](https://support.sippysoft.com/support/solutions/articles/107436-xml-rpc-api-exporting-vendors-cdr-to-mera-format))
+* [X] Get Customer CDRs ([getCustomerCDRs](https://support.sippysoft.com/support/solutions/articles/107429-xml-rpc-api-get-cdrs-of-a-customer))
+* [X] Get Account CDRs ([getAccountCDRs](https://support.sippysoft.com/support/solutions/articles/107367-xml-rpc-api-get-cdrs-of-an-account))
+* [ ] Get CDR SDP ([getCDRSDP](https://support.sippysoft.com/support/solutions/articles/3000039695-xml-rpc-api-retrieve-sdp-data-of-a-call))
 
 ### DID Management
 

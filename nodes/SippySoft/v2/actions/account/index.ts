@@ -1,5 +1,6 @@
 import * as getRegistrationStatus from './getRegistrationStatus';
 import * as listAccounts from './listAccounts';
+import * as accountCredit from './accountCredit';
 /*import * as del from './del';
 import * as members from './members';
 import * as restore from './restore';
@@ -8,7 +9,7 @@ import * as statistics from './statistics';
 import * as search from './search';*/
 import type { INodeProperties } from 'n8n-workflow';
 
-export { getRegistrationStatus, listAccounts };
+export { getRegistrationStatus, listAccounts, accountCredit };
 
 export const descriptions: INodeProperties[] = [
 	{
@@ -33,7 +34,13 @@ export const descriptions: INodeProperties[] = [
 				value: 'listAccounts',
 				description: 'List all accounts',
 				action: 'List all accounts',
-			}
+			},
+			{
+				name: 'Add Account Credit',
+				value: 'accountCredit',
+				description: 'Add credit to an account',
+				action: 'Add credit to an account',
+			},
 			/*{
 				name: 'Create',
 				value: 'create',
@@ -75,6 +82,7 @@ export const descriptions: INodeProperties[] = [
 	},
 	...getRegistrationStatus.description,
 	...listAccounts.description,
+	...accountCredit.description,
 	/*
 	...create.description,
 	...del.description,

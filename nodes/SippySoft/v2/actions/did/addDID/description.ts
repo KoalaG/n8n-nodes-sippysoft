@@ -1,6 +1,6 @@
 import cli_translation_rule from '../../../properties/cli_translation_rule';
 import optionalCollection from '../../../properties/collections/optional';
-import requiredCollection from '../../../properties/collections/required';
+import required from '../../../properties/collections/required';
 import description from '../../../properties/description';
 import did from '../../../properties/did';
 import i_account from '../../../properties/i_account';
@@ -13,7 +13,7 @@ import type { DIDProperties } from '../../Interfaces';
 
 export const addDIDDescription: DIDProperties = [
 
-	requiredCollection('addDID', [
+	...required('addDID', [
 		did(),
 		incoming_did(),
 	]),

@@ -108,3 +108,7 @@ export type GetCustomerCDRsResponse = {
 		result: number;
 	}[]
 }
+
+export type accountCreditResponse = {
+	result: 'OK';
+}

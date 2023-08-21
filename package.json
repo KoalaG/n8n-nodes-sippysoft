@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-sippysoft",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A N8N Node for SippySoft.",
   "keywords": [
     "n8n-community-node-package"

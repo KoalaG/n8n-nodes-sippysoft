@@ -32,6 +32,7 @@ The following lists operations and their implementation status. A link to the Si
 * [ ] Get Account Info ([getAccountInfo](https://support.sippysoft.com/support/solutions/articles/107327-xml-rpc-api-retrieving-account-information))
 * [X] Get Registration Status ([getRegistrationStatus](https://support.sippysoft.com/support/solutions/articles/107366-xml-rpc-api-get-sip-registration-status-of-an-account))
 * [ ] Reset One Time Password ([resetAccountOneTimePassword](https://support.sippysoft.com/support/solutions/articles/107399-xml-rpc-api-resetting-one-time-password-for-web-interface-login-account-))
+* [X] Add Account Credit ([accountCredit](https://support.sippysoft.com/support/solutions/articles/107440-xml-rpc-api-refunding-an-account))
 
 #### Incoming Routes
 
@@ -116,7 +117,6 @@ The following lists operations and their implementation status. A link to the Si
 #### Account Balance Manipulation
 
 * [ ] accountAddFunds ([accountAddFunds](https://support.sippysoft.com/support/solutions/articles/107440-xml-rpc-api-refunding-an-account))
-* [ ] accountCredit ([accountCredit](https://support.sippysoft.com/support/solutions/articles/107440-xml-rpc-api-refunding-an-account))
 * [ ] accountDebit ([accountDebit](https://support.sippysoft.com/support/solutions/articles/107440-xml-rpc-api-refunding-an-account))
 
 #### Vendor Balance Manipulation

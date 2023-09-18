@@ -51,15 +51,17 @@ export async function getAccountCDRs(
 			responseData.cdrs.map(cdr => ({
 				...cdr,
 
-				setup_time_raw: cdr.setup_time,
-				setup_time: parseDate(cdr.setup_time),
-
+				connect_time: cdr.connect_time ? parseDate(cdr.connect_time) : null,
 				connect_time_raw: cdr.connect_time,
-				connect_time: parseDate(cdr.connect_time),
+
+				disconnect_time: cdr.disconnect_time ? parseDate(cdr.disconnect_time) : null,
+				disconnect_time_raw: cdr.connect_time,
+
 			})),
 		);
 
 	} catch (err) {
+		console.log(parameters);
 		throw err;
 	}
 }

@@ -49,8 +49,9 @@ export type GetAccountCDRsResponse = {
 	result: 'OK';
 	cdrs: {
 		i_account: number;
-		setup_time: string;
+		// setup_time: string; // Removed since 4.4
 		connect_time: string;
+		disconnect_time: string;
 		billed_duration: number;
 		plan_duration: number;
 		cli: string;

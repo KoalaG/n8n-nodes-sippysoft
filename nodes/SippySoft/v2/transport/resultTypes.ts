@@ -225,3 +225,6 @@ export type GetAccountInfoResponse = {
 	i_incoming_anonumous_action: number;
 	max_calls_per_second: number;
 }
+
+export type GetCustomerInfoResponse = {
+}

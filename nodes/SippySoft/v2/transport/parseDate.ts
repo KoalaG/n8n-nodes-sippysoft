@@ -1,5 +1,3 @@
-import { getNodeWebhookPath } from "n8n-workflow/dist/NodeHelpers";
-
 const monthMap: { [key: string]: string} = {
 	Jan: '01',
 	Feb: '02',

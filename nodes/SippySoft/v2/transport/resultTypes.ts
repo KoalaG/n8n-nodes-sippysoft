@@ -21,6 +21,20 @@ export type ListAccountsResponse = {
 	}[];
 }
 
+
+export type ListCustomersResponse = {
+	result: 'OK';
+	customers: {
+		i_customer: number;
+		name: string;
+		web_login: string;
+		description: boolean;
+		balance: number;
+		credit_limit: number;
+		base_currency: string;
+	}[];
+}
+
 export type GetDIDsListResponse = {
 	result: 'OK';
 	dids: {

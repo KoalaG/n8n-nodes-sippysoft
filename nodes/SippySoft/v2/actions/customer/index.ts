@@ -1,8 +1,9 @@
 import type { INodeProperties } from 'n8n-workflow';
 
 import * as getCustomerInfo from './getCustomerInfo';
+import * as listCustomers from './listCustomers';
 
-export { getCustomerInfo };
+export { getCustomerInfo, listCustomers };
 
 export const descriptions: INodeProperties[] = [
 	{
@@ -22,9 +23,16 @@ export const descriptions: INodeProperties[] = [
 				description: 'Get info for a customer',
 				action: 'Get info for a customer',
 			},
+			{
+				name: 'List Customers',
+				value: 'listCustomers',
+				description: 'Get a list of customers',
+				action: 'Get a list of customers',
+			},
 		],
-		default: 'getCustomerInfo',
+		default: 'listCustomers',
 	},
 	...getCustomerInfo.description,
+	...listCustomers.description,
 
 ];

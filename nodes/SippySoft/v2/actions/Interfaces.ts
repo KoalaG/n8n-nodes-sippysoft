@@ -2,7 +2,7 @@ import type { AllEntities, Entity, PropertiesOf } from 'n8n-workflow';
 
 type SippysoftMap = {
 	account: 'getRegistrationStatus' | 'accountCredit';
-	customer: 'getCustomerInfo';
+	customer: 'getCustomerInfo' | 'listCustomers';
 	did: /*'addDID' | 'updateDID' | 'deleteDID' | 'getDIDInfo' |*/ 'getDIDsList' /*| 'getDIDChargingGroupInfo' | 'addDIDDelegation' | 'updateDIDDelegation' | 'deleteDIDDelegation'*/;
 	cdr: 'getAccountCDRs' | 'getCustomerCDRs' /*| 'getCDRSDP'*/;
 	/*

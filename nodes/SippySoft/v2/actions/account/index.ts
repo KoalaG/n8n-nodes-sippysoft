@@ -33,6 +33,12 @@ export const descriptions: INodeProperties[] = [
 				action: 'Get info for an account',
 			},
 			{
+				name: 'Get Account Info By Username',
+				value: 'getAccountInfoByUsername',
+				description: 'Get info for an account using username',
+				action: 'Get info for an account using username',
+			},
+			{
 				name: 'Get Registration Status',
 				value: 'getRegistrationStatus',
 				description: 'Get the registration status of an account',

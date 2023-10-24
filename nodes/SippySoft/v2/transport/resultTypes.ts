@@ -6,6 +6,10 @@ export type GetRegistrationStatusResponse = {
 	expires: string;
 }
 
+export type UpdateAccountResponse = {
+	result: 'OK';
+}
+
 export type ListAccountsResponse = {
 	result: 'OK';
 	accounts: {
@@ -20,7 +24,6 @@ export type ListAccountsResponse = {
 		registration_status: Omit<GetRegistrationStatusResponse, 'result'> | null;
 	}[];
 }
-
 
 export type ListCustomersResponse = {
 	result: 'OK';
@@ -103,6 +106,7 @@ export type GetAccountCDRsResponse = {
 		area_name: string;
 	}[]
 }
+
 export type GetCustomerCDRsResponse = {
 	result: 'OK';
 	cdrs: {

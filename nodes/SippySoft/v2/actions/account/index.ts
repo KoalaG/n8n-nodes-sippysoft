@@ -4,8 +4,9 @@ import * as getRegistrationStatus from './getRegistrationStatus';
 import * as listAccounts from './listAccounts';
 import * as accountCredit from './accountCredit';
 import * as getAccountInfo from './getAccountInfo';
+import * as updateAccount from './updateAccount';
 
-export { getRegistrationStatus, listAccounts, accountCredit, getAccountInfo };
+export { getRegistrationStatus, listAccounts, accountCredit, getAccountInfo, updateAccount };
 
 export const descriptions: INodeProperties[] = [
 	{
@@ -20,6 +21,18 @@ export const descriptions: INodeProperties[] = [
 		},
 		options: [
 			{
+				name: 'Add Account Credit',
+				value: 'accountCredit',
+				description: 'Add credit to an account',
+				action: 'Add credit to an account',
+			},
+			{
+				name: 'Get Account Info',
+				value: 'getAccountInfo',
+				description: 'Get info for an account',
+				action: 'Get info for an account',
+			},
+			{
 				name: 'Get Registration Status',
 				value: 'getRegistrationStatus',
 				description: 'Get the registration status of an account',
@@ -32,17 +45,11 @@ export const descriptions: INodeProperties[] = [
 				action: 'List all accounts',
 			},
 			{
-				name: 'Add Account Credit',
-				value: 'accountCredit',
-				description: 'Add credit to an account',
-				action: 'Add credit to an account',
-			},
-			{
-				name: 'Get Account Info',
-				value: 'getAccountInfo',
-				description: 'Get info for an account',
-				action: 'Get info for an account',
-			},
+				name: 'Update Account',
+				value: 'updateAccount',
+				description: 'Update an account',
+				action: 'Update an account',
+			}
 		],
 		default: 'listAccounts',
 	},
@@ -50,5 +57,5 @@ export const descriptions: INodeProperties[] = [
 	...listAccounts.description,
 	...accountCredit.description,
 	...getAccountInfo.description,
-
+	...updateAccount.description,
 ];

@@ -4,9 +4,10 @@ import * as getRegistrationStatus from './getRegistrationStatus';
 import * as listAccounts from './listAccounts';
 import * as accountCredit from './accountCredit';
 import * as getAccountInfo from './getAccountInfo';
+import * as getAccountInfoByUsername from './getAccountInfoByUsername';
 import * as updateAccount from './updateAccount';
 
-export { getRegistrationStatus, listAccounts, accountCredit, getAccountInfo, updateAccount };
+export { getRegistrationStatus, listAccounts, accountCredit, getAccountInfo, updateAccount, getAccountInfoByUsername };
 
 export const descriptions: INodeProperties[] = [
 	{
@@ -63,5 +64,6 @@ export const descriptions: INodeProperties[] = [
 	...listAccounts.description,
 	...accountCredit.description,
 	...getAccountInfo.description,
+	...getAccountInfoByUsername.description,
 	...updateAccount.description,
 ];

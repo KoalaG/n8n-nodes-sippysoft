@@ -1,4 +1,4 @@
-import type { IExecuteFunctions, IDataObject, INodeExecutionData } from 'n8n-workflow';
+import { type IExecuteFunctions, type IDataObject, type INodeExecutionData, NodeOperationError } from 'n8n-workflow';
 
 import * as account from './account';
 import * as did from './did';
@@ -39,15 +39,21 @@ export async function router(this: IExecuteFunctions): Promise<INodeExecutionDat
 				{ itemData: { item: i } },
 			);
 			operationResult.push(...executionData);
-		} catch (err) {
+		} catch (error) {
 			if (this.continueOnFail()) {
-				operationResult.push({
-					json: this.getInputData(i)[0].json,
-					error: err
-				});
+				const json = this.getInputData(i) ? this.getInputData(i)[0].json : items[i].json;
+				operationResult.push({ json: { input: json, error }, error, pairedItem: i });
 			} else {
-				if (err.context) err.context.itemIndex = i;
-				throw err;
+				// Adding `itemIndex` allows other workflows to handle this error
+				if (error.context) {
+					// If the error thrown already contains the context property,
+					// only append the itemIndex
+					error.context.itemIndex = i;
+					throw error;
+				}
+				throw new NodeOperationError(this.getNode(), error, {
+					itemIndex: i,
+				});
 			}
 		}
 	}
